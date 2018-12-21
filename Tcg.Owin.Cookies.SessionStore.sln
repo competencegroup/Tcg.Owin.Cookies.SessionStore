@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2048
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tcg.Owin.Cookies.SessionStore.Redis", "Tcg.Owin.Cookies.SessionStore.Redis\Tcg.Owin.Cookies.SessionStore.Redis.csproj", "{3310E583-2DF6-4175-90B0-9419B3CF08FE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tcg.Owin.Cookies.SessionStore.Redis", "src\Tcg.Owin.Cookies.SessionStore.Redis\Tcg.Owin.Cookies.SessionStore.Redis.csproj", "{3310E583-2DF6-4175-90B0-9419B3CF08FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tcg.Owin.Cookies.SessionStore.Memory", "Tcg.Owin.Cookies.SessionStore.Memory\Tcg.Owin.Cookies.SessionStore.Memory.csproj", "{A75A2BCD-50DD-4747-ADE9-D3C6F88E922D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tcg.Owin.Cookies.SessionStore.Memory", "src\Tcg.Owin.Cookies.SessionStore.Memory\Tcg.Owin.Cookies.SessionStore.Memory.csproj", "{A75A2BCD-50DD-4747-ADE9-D3C6F88E922D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
