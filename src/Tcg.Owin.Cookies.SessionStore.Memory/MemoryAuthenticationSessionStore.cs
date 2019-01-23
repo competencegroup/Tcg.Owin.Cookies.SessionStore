@@ -54,7 +54,11 @@ namespace Tcg.Owin.Cookies.SessionStore.Memory
         {
             lock (_lock)
             {
-                return Task.FromResult(_cache[key]);
+                AuthenticationTicket value;
+                if(_cache.TryGetValue(key, out value))
+                    return Task.FromResult(value);
+
+                return Task.FromResult((AuthenticationTicket)null);
             }
         }
 
