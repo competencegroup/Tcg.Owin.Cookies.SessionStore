@@ -1,4 +1,6 @@
-﻿using Microsoft.Owin.Security;
+﻿using Exceptionless;
+using Exceptionless.Logging;
+using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using System;
 using System.Collections.Generic;
@@ -25,6 +27,9 @@ namespace Tcg.Owin.Cookies.SessionStore.Memory
 
                 foreach (var expiredKey in expiredKeys)
                 {
+                    ExceptionlessClient.Default.CreateLog("MemoryAuthenticationSessionStore", $"Removing expired key (timer) {expiredKey}", LogLevel.Debug)
+                        .Submit();
+
                     _cache.Remove(expiredKey);
                 }
             }
@@ -32,7 +37,10 @@ namespace Tcg.Owin.Cookies.SessionStore.Memory
 
         public Task RemoveAsync(string key)
         {
-            lock(_lock)
+            ExceptionlessClient.Default.CreateLog("MemoryAuthenticationSessionStore", $"Removing key {key}", LogLevel.Debug)
+                        .Submit();
+
+            lock (_lock)
             {
                 _cache.Remove(key);
             }
@@ -42,6 +50,9 @@ namespace Tcg.Owin.Cookies.SessionStore.Memory
 
         public Task RenewAsync(string key, AuthenticationTicket ticket)
         {
+            ExceptionlessClient.Default.CreateLog("MemoryAuthenticationSessionStore", $"Renewing key {key}", LogLevel.Debug)
+                        .Submit();
+
             lock (_lock)
             {
                 _cache[key] = ticket;
@@ -55,8 +66,16 @@ namespace Tcg.Owin.Cookies.SessionStore.Memory
             lock (_lock)
             {
                 AuthenticationTicket value;
-                if(_cache.TryGetValue(key, out value))
+                if (_cache.TryGetValue(key, out value))
+                {
+                    ExceptionlessClient.Default.CreateLog("MemoryAuthenticationSessionStore", $"Retrieving key {key} (FOUND)", LogLevel.Debug)
+                        .Submit();
+
                     return Task.FromResult(value);
+                }
+
+                ExceptionlessClient.Default.CreateLog("MemoryAuthenticationSessionStore", $"Retrieving key {key} (NOT FOUND)", LogLevel.Debug)
+                        .Submit();
 
                 return Task.FromResult((AuthenticationTicket)null);
             }
@@ -65,6 +84,9 @@ namespace Tcg.Owin.Cookies.SessionStore.Memory
         public Task<string> StoreAsync(AuthenticationTicket ticket)
         {
             string key = Guid.NewGuid().ToString("N");
+            ExceptionlessClient.Default.CreateLog("MemoryAuthenticationSessionStore", $"Storing key {key}", LogLevel.Debug)
+                        .Submit();
+
             lock (_lock)
             {
                 _cache[key] = ticket;
