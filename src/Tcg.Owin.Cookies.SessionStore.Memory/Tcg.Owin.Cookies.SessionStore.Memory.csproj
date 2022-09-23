@@ -6,6 +6,7 @@
     <Version>1.0.0</Version>
     <Company>The Competence Group</Company>
     <Authors />
+    <MinVerTagPrefix>v</MinVerTagPrefix>
   </PropertyGroup>
 
   <ItemGroup>
