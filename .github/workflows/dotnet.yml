@@ -27,6 +27,9 @@ jobs:
       run: dotnet test --no-build --verbosity normal
     - name: Package
       run: dotnet pack
+    - name: Debug
+      run: |
+        ls **/*.nupkg
     - name: Publish
       run: dotnet nuget push --api-key ${{ secrets.nuget_key }} **/*.nupkg
       if: startsWith(github.ref, 'refs/tags/v')
