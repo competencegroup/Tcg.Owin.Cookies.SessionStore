@@ -1,11 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28701.123
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tcg.Owin.Cookies.SessionStore.Redis", "src\Tcg.Owin.Cookies.SessionStore.Redis\Tcg.Owin.Cookies.SessionStore.Redis.csproj", "{3310E583-2DF6-4175-90B0-9419B3CF08FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tcg.Owin.Cookies.SessionStore.Redis", "src\Tcg.Owin.Cookies.SessionStore.Redis\Tcg.Owin.Cookies.SessionStore.Redis.csproj", "{3310E583-2DF6-4175-90B0-9419B3CF08FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tcg.Owin.Cookies.SessionStore.Memory", "src\Tcg.Owin.Cookies.SessionStore.Memory\Tcg.Owin.Cookies.SessionStore.Memory.csproj", "{A75A2BCD-50DD-4747-ADE9-D3C6F88E922D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tcg.Owin.Cookies.SessionStore.Memory", "src\Tcg.Owin.Cookies.SessionStore.Memory\Tcg.Owin.Cookies.SessionStore.Memory.csproj", "{A75A2BCD-50DD-4747-ADE9-D3C6F88E922D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{15EF2D76-72B9-4529-B06D-FA214E50BC8E}"
+	ProjectSection(SolutionItems) = preProject
+		appveyor.yml = appveyor.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
