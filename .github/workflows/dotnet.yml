@@ -3,18 +3,22 @@ name: .NET
 on:
   push:
     branches: [ "master" ]
-    tags:        
+    tags:
       - '*'
   pull_request:
     branches: [ "master" ]
 
+permissions:
+  contents: read
+
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0 # MinVer needs the tags and history to compute the version
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
@@ -22,9 +26,44 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore --configuration Release
     - name: Test
-      run: dotnet test --no-build --verbosity normal
-    - name: Publish
-      run: dotnet nuget push --api-key ${{ secrets.nuget_key }} ./src/*/bin/*/*.nupkg --source https://api.nuget.org/v3/index.json
+      run: dotnet test --no-build --configuration Release --verbosity normal
+    - name: Upload packages
       if: startsWith(github.ref, 'refs/tags/v')
+      uses: actions/upload-artifact@v4
+      with:
+        name: packages
+        path: ./src/*/bin/Release/*.nupkg
+        if-no-files-found: error
+
+  publish:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      id-token: write # needed for NuGet trusted publishing (OIDC)
+
+    steps:
+    - name: Download packages
+      uses: actions/download-artifact@v4
+      with:
+        name: packages
+        path: packages
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 10.0.x
+    - name: NuGet login
+      id: login
+      uses: NuGet/login@v1
+      with:
+        user: ${{ secrets.NUGET_USER }}
+    - name: Publish
+      env:
+        NUGET_API_KEY: ${{ steps.login.outputs.NUGET_API_KEY }}
+      run: |
+        for pkg in $(find packages -name '*.nupkg'); do
+          dotnet nuget push "$pkg" --api-key "$NUGET_API_KEY" --source https://api.nuget.org/v3/index.json --skip-duplicate
+        done
