@@ -1,0 +1,23 @@
+version: 2
+updates:
+  # Actions used in .github/workflows (checkout, setup-dotnet, artifacts, NuGet/login)
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+
+  # NuGet packages in src/*/*.csproj
+  - package-ecosystem: "nuget"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      # Minor and patch updates together in one PR; major updates get their own PR
+      nuget-minor-patch:
+        update-types:
+          - "minor"
+          - "patch"
