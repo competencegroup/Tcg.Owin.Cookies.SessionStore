@@ -12,12 +12,14 @@
   <ItemGroup>
     <PackageReference Include="Foundatio.Redis" Version="10.5.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Microsoft.Owin.Security.Cookies" Version="4.2.2" />
-    <PackageReference Include="MinVer" Version="4.2.0">
+    <PackageReference Include="Microsoft.Owin.Security.Cookies" Version="4.2.3" />
+    <PackageReference Include="MinVer" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <!-- Pinned: Foundatio 10.x pulls in System.Text.Json 6.0.0 (GHSA-8g4q-xg66-9fp4) -->
+    <PackageReference Include="System.Text.Json" Version="10.0.14" />
   </ItemGroup>
 
 </Project>
