@@ -1,0 +1,40 @@
+name-template: 'v$RESOLVED_VERSION'
+tag-template: 'v$RESOLVED_VERSION'
+tag-prefix: 'v'
+change-template: '- $TITLE (#$NUMBER)'
+prerelease: false
+template: "$CHANGES"
+categories:
+  - title: 'Breaking changes'
+    exclusive: true
+    semver-increment: major
+    when:
+      label: breaking
+  - title: 'Fixed and added'
+    exclusive: true
+    when:
+      labels:
+        - enhancement
+        - feature
+        - bug
+  - title: 'Dependencies'
+    exclusive: true
+    semver-increment: patch
+    when:
+      label: dependencies
+  - type: version-resolver
+    semver-increment: major
+    when:
+      label: breaking
+  - type: version-resolver
+    semver-increment: minor
+    when:
+      labels:
+        - enhancement
+        - feature
+  - type: version-resolver
+    semver-increment: patch
+    when:
+      label: dependencies
+  - type: version-resolver
+    semver-increment: patch
